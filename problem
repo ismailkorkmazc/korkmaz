@@ -1,0 +1,59 @@
+import random
+import time
+import math
+
+def solve_prime_factors(number):
+    """Bir sayının asal çarpanlarını bulur."""
+    factors = []
+    divisor = 2
+    while number > 1:
+        while number % divisor == 0:
+            factors.append(divisor)
+            number //= divisor
+        divisor += 1
+    return factors
+
+def solve_fibonacci(n):
+    """n. Fibonacci sayısını hesaplar (optimize edilmiş yöntem)."""
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    a, b = 0, 1
+    for _ in range(2, n + 1):
+        a, b = b, a + b
+    return b
+
+def solve_quadratic(a, b, c):
+    """ax^2 + bx + c = 0 denkleminin köklerini çözer."""
+    discriminant = b**2 - 4*a*c
+    if discriminant < 0:
+        return "Reel kök yok"
+    root1 = (-b + math.sqrt(discriminant)) / (2 * a)
+    root2 = (-b - math.sqrt(discriminant)) / (2 * a)
+    return root1, root2
+
+def random_problem_solver():
+    """Rastgele seçilen matematik problemini çözer."""
+    problems = ["asal_çarpanlar", "fibonacci", "ikinci_dereceden"]
+    selected_problem = random.choice(problems)
+    
+    if selected_problem == "asal_çarpanlar":
+        number = random.randint(1000, 100000)
+        return f"Asal çarpanlar ({number}): {solve_prime_factors(number)}"
+    
+    elif selected_problem == "fibonacci":
+        n = random.randint(20, 50)
+        return f"{n}. Fibonacci sayısı: {solve_fibonacci(n)}"
+    
+    elif selected_problem == "ikinci_dereceden":
+        a = random.randint(1, 10)
+        b = random.randint(-20, 20)
+        c = random.randint(-20, 20)
+        return f"{a}x^2 + {b}x + {c} = 0 denkleminin kökleri: {solve_quadratic(a, b, c)}"
+
+# Çözüm süresi limiti
+start_time = time.time()
+while time.time() - start_time < 4:  # 4 saniye boyunca çalışır
+    print(random_problem_solver())
+    time.sleep(1)  # Her çözüm arasında 1 saniye bekleme
